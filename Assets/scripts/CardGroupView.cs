@@ -8,7 +8,7 @@ public class CardGroupView : MonoBehaviour
 {
     [SerializeField] private RectTransform _selfTransform;
 
-    public List<CardView> _cards;
+    public List<CardView> cards;
 
     public GameObject labelObject;
     public TMP_Text label;
@@ -18,28 +18,28 @@ public class CardGroupView : MonoBehaviour
     {
         card.transform.SetParent(this.transform);
         card.group = this;
-        _cards.Add(card);
+        cards.Add(card);
         Rearrange();
 
     }
 
     public void Remove(CardView card)
     {
-        _cards.Remove(card);
+        cards.Remove(card);
         Rearrange();
     }
 
     void Rearrange()
     {
-        float segment = 168 * (1-cardOverlapArea);
-        groupWidth = (_cards.Count-1) * segment;
-        groupWidth += 168;
+        float segment = CardController.Instance.cardWidth * (1-cardOverlapArea);
+        groupWidth = (cards.Count-1) * segment;
+        groupWidth += CardController.Instance.cardWidth; 
 
-        float leftEnd = (-groupWidth / 2) + 168 / 2;
+        float leftEnd = (-groupWidth / 2) + CardController.Instance.cardWidth / 2;
 
         _selfTransform.sizeDelta = new Vector2(groupWidth, _selfTransform.sizeDelta.y);
 
-        foreach (var item in _cards)
+        foreach (var item in cards)
         {
             item.transform.localPosition = new Vector2(leftEnd,0);
             leftEnd += segment;
