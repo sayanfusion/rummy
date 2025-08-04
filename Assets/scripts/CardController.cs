@@ -4,6 +4,7 @@ using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using static UnityEditor.Progress;
 
 public class CardController : MonoBehaviour
 {
@@ -35,11 +36,9 @@ public class CardController : MonoBehaviour
     [SerializeField] List<string> closedDeck;
     [SerializeField] List<string> openDeck;
     public bool unbalanceDeck;
-    public int score;
     public TMP_Text scoreText;
     public Canvas canvas;
     public float cardWidth = 168;
-
     internal CardView draggingCard;
     private void Awake()
     {
@@ -81,7 +80,9 @@ public class CardController : MonoBehaviour
             {
                 CardView card = Instantiate(cardPrefab);
                 card.Initiate(rank, suit, sprite);
-                cardGroup.Add(card);
+                card.transform.name= cardName;
+                cardGroup.Add(card,i);
+                card.parent=cardGroup.transform;
             }
             else
             {
@@ -97,8 +98,6 @@ public class CardController : MonoBehaviour
         closedDeck = new List<string>(allCards);
         ShuffleList(closedDeck);
         allCards.Clear();
-        score = 100;
-        UpdateScore();
 
     }
 
@@ -216,24 +215,16 @@ public class CardController : MonoBehaviour
         cardGroup.transform.localPosition = Vector3.zero;
         cardGroup.name = $"{allCardGroups.Count}";
         allCardGroups.Insert(0, cardGroup);
-        foreach (var item in selectedCards)
-        {
-            item.group.Remove(item);
-            cardGroup.Add(item);
-            item.selected = false;
 
+        for (int i = 0; i < selectedCards.Count; i++)
+        {
+            selectedCards[i].group.Remove(selectedCards[i]);
+            cardGroup.Add(selectedCards[i],i);
+            selectedCards[i].selected = false;
         }
+
         selectedCards.Clear();
         ReArrangeCardHolder();
-        bool set = IsSet(cardGroup.cards);
-        bool sequence = IsSequence(cardGroup.cards);
-
-        cardGroup.labelObject.SetActive(true);
-        cardGroup.label.text = "invalid";
-        if (set || sequence)
-        {
-            cardGroup.label.text = set ? "Set" : "Pure Sequence";
-        }
         grpBtn.gameObject.SetActive(false);
 
     }
@@ -261,47 +252,12 @@ public class CardController : MonoBehaviour
         {
             leftEnd += item.groupWidth / 2;
             item.transform.localPosition = new Vector2(leftEnd, 0);
-            leftEnd += item.groupWidth / 2 + (20);
+            leftEnd += item.groupWidth / 2 + (30);
 
         }
     }
 
-    bool IsSet(List<CardView> cards)
-    {
-        if (cards.Count < 3 || cards.Count > 4) return false;
 
-        int rank = cards[0].rank;
-        HashSet<string> suits = new HashSet<string>();
-
-        foreach (var card in cards)
-        {
-
-            if (card.rank != rank || !suits.Add(card.suit))
-                return false;
-            score -= 10;
-        }
-        UpdateScore();
-
-        return true;
-    }
-
-    bool IsSequence(List<CardView> cards)
-    {
-        if (cards.Count < 3) return false;
-
-        cards = cards.OrderBy(c => c.rank).ToList();
-        string suit = cards[0].suit;
-
-        for (int i = 1; i < cards.Count; i++)
-        {
-            if (cards[i].suit != suit || cards[i].rank != cards[i - 1].rank + 1)
-                return false;
-            score -= 10;
-
-        }
-        UpdateScore();
-        return true;
-    }
 
     public static void ShuffleList(List<string> list)
     {
@@ -318,8 +274,15 @@ public class CardController : MonoBehaviour
         }
     }
 
-    void UpdateScore()
+    internal void UpdateScore()
     {
+        int score = 0;
+
+        foreach (var item in allCardGroups)
+        {
+            score += item.grpPoint;
+        }
+
         if (score <= 0)
         {
 
