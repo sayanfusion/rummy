@@ -767,7 +767,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -401.06, y: 21}
+  m_AnchoredPosition: {x: -401.06, y: 122}
   m_SizeDelta: {x: 140, y: 190}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &445657569
@@ -1123,7 +1123,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 400, y: 21}
+  m_AnchoredPosition: {x: 400, y: 122}
   m_SizeDelta: {x: 140, y: 190}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &575711687
@@ -1345,7 +1345,6 @@ MonoBehaviour:
   closedDeck: []
   openDeck: []
   unbalanceDeck: 0
-  score: 0
   scoreText: {fileID: 56160016}
   canvas: {fileID: 747349879}
   cardWidth: 154
