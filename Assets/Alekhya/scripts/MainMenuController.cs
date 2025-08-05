@@ -10,6 +10,8 @@ public class MainMenuController : MonoBehaviour
     private MainMenuModel mainMenumodel;
     [SerializeField] private GameObject SettingsOptions;
     [SerializeField] private GameObject GamseStatsOptions;
+    [SerializeField] private GameObject[] allPanels;
+    [SerializeField] private GameObject defaultPanel;
 
 
     private void Awake()
@@ -20,8 +22,11 @@ public class MainMenuController : MonoBehaviour
         mainMenuView.OnQuitPressed += HandleQuitButton;
         mainMenuView.OnBackPressed += HandleBackButton;
         mainMenuView.OnGameStatsPressed += HandleGameStatsButton;
+    }
 
-        // SettingsOptions.SetActive(false);
+    private void Start()
+    {
+        
     }
 
 
@@ -30,7 +35,18 @@ public class MainMenuController : MonoBehaviour
     private void HandlePlayButton()
     {
         Debug.Log("I am clicked");
-        SceneManager.LoadScene("RummyGame");
+        string sceneName = "SampleScene";
+
+        if (Application.CanStreamedLevelBeLoaded(sceneName))
+        {
+            Debug.Log("I have Entered The Rummy Game");
+            SceneManager.LoadScene(sceneName);
+        }
+
+        else
+        {
+            Debug.Log("SceneName is no Valid");
+        }
     }
 
 
@@ -38,20 +54,12 @@ public class MainMenuController : MonoBehaviour
     {
         Debug.Log("I am back to the mainmenu");
         SceneManager.LoadScene("PlayerMainMenu");
-        SettingsOptions.SetActive(false);
     }
 
     public void HandleSettingButton()
     {
         mainMenumodel.OnOpenSettings();
-        SettingsOptions.SetActive(true);
     }
-
-
-    // private void HandleSettingButtonClose()
-    // {
-    //     mainMenumodel.OnCloseSettings();
-    // }
 
 
     private void HandleQuitButton()
@@ -63,7 +71,39 @@ public class MainMenuController : MonoBehaviour
     private void HandleGameStatsButton()
     {
         GamseStatsOptions.SetActive(true);
+        defaultPanel.SetActive(true);
     }
+
+    private void ShowOnePanel(GameObject panelShow)
+    {
+        foreach(GameObject panel in allPanels)
+        {
+            panel.SetActive(panel == panelShow);
+        }
+    }
+
+
+    public void ShowGameInfoPanel()
+    {
+        ShowOnePanel(allPanels[0]);
+    }
+    public void ShowDiscardPilePanel()
+    {
+        ShowOnePanel(allPanels[1]);
+    }
+    public void ShowLastGamePanel()
+    {
+        ShowOnePanel(allPanels[2]);
+    }
+    public void ShowGameRulesPanel()
+    {
+        ShowOnePanel(allPanels[3]);
+    }
+    public void ShowDeckPanel()
+    {
+        ShowOnePanel(allPanels[4]);
+    }
+    
 
     
 }

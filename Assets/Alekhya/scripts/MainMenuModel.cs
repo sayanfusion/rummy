@@ -13,17 +13,9 @@ public class MainMenuModel
         isSettingOpen = true;
 
     }
-    // public void OnCloseSettings()
-    // {
-    //     isSettingOpen = false;
-    // }
     public void OnOpenGameStatsButton()
     {
         isgameStatsOpen = true;
 
     }
-    // public void OnCloseGameStatsButton()
-    // {
-    //     isgameStatsOpen = false;
-    // }
 }
