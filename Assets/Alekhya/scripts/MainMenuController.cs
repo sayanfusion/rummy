@@ -9,9 +9,8 @@ public class MainMenuController : MonoBehaviour
     public MainMenuView mainMenuView;
     private MainMenuModel mainMenumodel;
     [SerializeField] private GameObject SettingsOptions;
-    [SerializeField] private GameObject GamseStatsOptions;
-    [SerializeField] private GameObject[] allPanels;
-    [SerializeField] private GameObject defaultPanel;
+    [SerializeField] private GameObject GameStatsOptions;
+    [SerializeField] private GameStatsOptionsManager gameStatsManager;
 
 
     private void Awake()
@@ -20,18 +19,7 @@ public class MainMenuController : MonoBehaviour
         mainMenuView.OnPlayPressed += HandlePlayButton;
         mainMenuView.OnSettingsPressed += HandleSettingButton;
         mainMenuView.OnQuitPressed += HandleQuitButton;
-        mainMenuView.OnBackPressed += HandleBackButton;
-        mainMenuView.OnGameStatsPressed += HandleGameStatsButton;
     }
-
-    private void Start()
-    {
-        
-    }
-
-
-
-
     private void HandlePlayButton()
     {
         Debug.Log("I am clicked");
@@ -50,15 +38,32 @@ public class MainMenuController : MonoBehaviour
     }
 
 
-    public void HandleBackButton()
-    {
-        Debug.Log("I am back to the mainmenu");
-        SceneManager.LoadScene("PlayerMainMenu");
-    }
+    // public void HandleBackButton()
+    // {
+    //     Debug.Log("I am back to the mainmenu");
+    //     SceneManager.LoadScene("PlayerMainMenu");
+    // }
+
+    // public void HandleSettingButton()
+    // {
+    //     mainMenumodel.OnOpenSettings();
+    //     SettingsOptions.SetActive(true);
+    //     if (GameStatsOptions != null)
+    //     {
+    //         GameStatsOptions.SetActive(false);
+    //     }
+    // }
 
     public void HandleSettingButton()
     {
-        mainMenumodel.OnOpenSettings();
+        SettingsOptions.SetActive(true);
+        gameStatsManager.HideGameStatsButton(); // Just tell it to hide
+    }
+
+    public void HandleBackButton()
+    {
+        SettingsOptions.SetActive(false);
+        gameStatsManager.ShowGameStatsButton(); // Just tell it to show
     }
 
 
@@ -66,44 +71,4 @@ public class MainMenuController : MonoBehaviour
     {
         Application.Quit();
     }
-
-
-    private void HandleGameStatsButton()
-    {
-        GamseStatsOptions.SetActive(true);
-        defaultPanel.SetActive(true);
-    }
-
-    private void ShowOnePanel(GameObject panelShow)
-    {
-        foreach(GameObject panel in allPanels)
-        {
-            panel.SetActive(panel == panelShow);
-        }
-    }
-
-
-    public void ShowGameInfoPanel()
-    {
-        ShowOnePanel(allPanels[0]);
-    }
-    public void ShowDiscardPilePanel()
-    {
-        ShowOnePanel(allPanels[1]);
-    }
-    public void ShowLastGamePanel()
-    {
-        ShowOnePanel(allPanels[2]);
-    }
-    public void ShowGameRulesPanel()
-    {
-        ShowOnePanel(allPanels[3]);
-    }
-    public void ShowDeckPanel()
-    {
-        ShowOnePanel(allPanels[4]);
-    }
-    
-
-    
 }

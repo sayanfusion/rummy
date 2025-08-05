@@ -9,14 +9,13 @@ public class MainMenuView : MonoBehaviour
     [SerializeField] private Button PlayButton;
     [SerializeField] private Button SettingButton;
     [SerializeField] private Button QuitButton;
-    [SerializeField] private Button BackButton;
-    [SerializeField] private Button GameStatsButton;
+    // [SerializeField] private Button BackButton;
 
 
     public event Action OnPlayPressed;
     public event Action OnSettingsPressed;
     public event Action OnQuitPressed;
-    public event Action OnBackPressed;
+    // public event Action OnBackPressed;
     public event Action OnGameStatsPressed;
 
     private void Start()
@@ -24,8 +23,7 @@ public class MainMenuView : MonoBehaviour
         PlayButton.onClick.AddListener(() => OnPlayPressed?.Invoke());
         SettingButton.onClick.AddListener(() => OnSettingsPressed?.Invoke());
         QuitButton.onClick.AddListener(() => OnQuitPressed?.Invoke());
-        BackButton.onClick.AddListener(() => OnBackPressed?.Invoke());
-        GameStatsButton.onClick.AddListener(()=> OnGameStatsPressed?.Invoke());
+        // BackButton.onClick.AddListener(() => OnBackPressed?.Invoke());
 
     }
 }
