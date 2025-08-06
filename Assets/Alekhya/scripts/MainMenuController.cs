@@ -37,33 +37,16 @@ public class MainMenuController : MonoBehaviour
         }
     }
 
-
-    // public void HandleBackButton()
-    // {
-    //     Debug.Log("I am back to the mainmenu");
-    //     SceneManager.LoadScene("PlayerMainMenu");
-    // }
-
-    // public void HandleSettingButton()
-    // {
-    //     mainMenumodel.OnOpenSettings();
-    //     SettingsOptions.SetActive(true);
-    //     if (GameStatsOptions != null)
-    //     {
-    //         GameStatsOptions.SetActive(false);
-    //     }
-    // }
-
     public void HandleSettingButton()
     {
         SettingsOptions.SetActive(true);
-        gameStatsManager.HideGameStatsButton(); // Just tell it to hide
+        gameStatsManager.HideGameStatsButton();
     }
 
     public void HandleBackButton()
     {
         SettingsOptions.SetActive(false);
-        gameStatsManager.ShowGameStatsButton(); // Just tell it to show
+        gameStatsManager.ShowGameStatsButton();
     }
 
 
