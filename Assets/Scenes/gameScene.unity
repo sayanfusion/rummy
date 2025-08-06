@@ -3247,8 +3247,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   menuPanel: {fileID: 32129592297693629}
-  menuPanelBtn: {fileID: 0}
-  menuPanelCloseBtn: {fileID: 0}
   currActivePanel: {fileID: 0}
   panelDataList:
   - panelOpenButton: {fileID: 2900366802647453404}
