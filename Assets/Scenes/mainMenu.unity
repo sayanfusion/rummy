@@ -226,7 +226,7 @@ GameObject:
   - component: {fileID: 636070638}
   - component: {fileID: 636070637}
   m_Layer: 0
-  m_Name: GameObject
+  m_Name: MainMenuController
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -261,8 +261,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mainMenuView: {fileID: 0}
   SettingsOptions: {fileID: 6791485228752193675}
-  GameStatsOptions: {fileID: 0}
-  gameStatsManager: {fileID: 0}
 --- !u!4 &636070639
 Transform:
   m_ObjectHideFlags: 0
