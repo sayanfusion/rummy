@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.SceneManagement;
 
 public class MainMenuController : MonoBehaviour
 {
@@ -35,22 +34,6 @@ public class MainMenuController : MonoBehaviour
             currActivePanel = null;
         }
 
-    }
-    
-     public void HandlePlayButton()
-    {
-        Debug.Log("I am clicked");
-        string sceneName = "gameScene";
-
-        if (Application.CanStreamedLevelBeLoaded(sceneName))
-        {
-            Debug.Log("I have Entered The Rummy Game");
-            SceneManager.LoadScene(sceneName);
-        }
-        else
-        {
-            Debug.Log("SceneName is no Valid");
-        }
     }
 }
 
